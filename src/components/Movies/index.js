@@ -2,18 +2,22 @@
 import { Container } from "./Styled"
 
 /** tech */
-import React, { useEffect, useState } from "react"
-import { getFirebase } from "../../services/firebase"
+import React, { useState } from "react"
+import { useFirebase } from "gatsby-plugin-firebase"
 
 const Movies = () => {
   const [movies, loadMovies] = useState(undefined)
-  useEffect(() => {
-    const lazyApp = import("firebase/app")
-    const lazyDatabase = import("firebase/database")
-    Promise.all([lazyApp, lazyDatabase]).then(([firebase]) => {
-      const database = getFirebase(firebase).database()
-    })
+
+  useFirebase(firebase => {
+    firebase
+      .database()
+      .ref("/movies")
+      .once("value")
+      .then(snapshot => {
+        loadMovies(snapshot.val())
+      })
   }, [])
+
   console.log(movies)
   return <Container>Movies</Container>
 }
