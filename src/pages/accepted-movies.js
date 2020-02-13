@@ -1,7 +1,8 @@
 import React from "react"
+import Movies from "../components/Movies"
 
 const AcceptedMovies = () => {
-  return <div></div>
+  return <Movies filter></Movies>
 }
 
 export default AcceptedMovies

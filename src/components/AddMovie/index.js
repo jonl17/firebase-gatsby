@@ -13,6 +13,7 @@ const AddMovie = () => {
     const movie = {
       name: name,
       created: new Date().getTime(),
+      accepted: false,
     }
     movieCollection
       .add(movie)

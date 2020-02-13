@@ -10,8 +10,10 @@ const Navigation = ({
 }) => {
   return (
     <Container>
-      {paths.map(item => (
-        <Link to={item.path}>{item.path}</Link>
+      {paths.map((item, index) => (
+        <Link key={index} to={item.path}>
+          {item.path}
+        </Link>
       ))}
     </Container>
   )

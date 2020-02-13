@@ -6,7 +6,7 @@ import Movie from "./Movie"
 import React from "react"
 import { useGetCollectionData } from "../../hooks"
 
-const Movies = () => {
+const Movies = ({ filter }) => {
   let movies = useGetCollectionData("movies")
   movies.sort((a, b) => {
     return a.frontmatter.created - b.frontmatter.created
@@ -14,15 +14,31 @@ const Movies = () => {
   return (
     <>
       <h1>Movies</h1>
-      <Container>
-        {movies !== undefined ? (
-          movies.map((movie, index) => (
-            <Movie key={index} movie={movie}></Movie>
-          ))
-        ) : (
-          <></>
-        )}
-      </Container>
+      {filter ? (
+        <Container>
+          {movies !== undefined ? (
+            movies.map((movie, index) =>
+              movie.frontmatter.accepted ? (
+                <Movie key={index} movie={movie}></Movie>
+              ) : (
+                <></>
+              )
+            )
+          ) : (
+            <></>
+          )}
+        </Container>
+      ) : (
+        <Container>
+          {movies !== undefined ? (
+            movies.map((movie, index) => (
+              <Movie key={index} movie={movie}></Movie>
+            ))
+          ) : (
+            <></>
+          )}
+        </Container>
+      )}
     </>
   )
 }

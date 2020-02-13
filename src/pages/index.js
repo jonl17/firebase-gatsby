@@ -1,9 +1,7 @@
 import React from "react"
-import Movies from "../components/Movies"
-import styled from "styled-components"
 
 const index = () => {
-  return <Movies></Movies>
+  return <h1>SKJALDBORGAR MYNDIR!?!?</h1>
 }
 
 export default index
