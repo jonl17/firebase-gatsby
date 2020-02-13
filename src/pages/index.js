@@ -1,3 +1,12 @@
 import React from "react"
+import Movies from "../components/Movies"
 
-export default () => <div>Hello C!</div>
+const index = () => {
+  return (
+    <div>
+      <Movies></Movies>
+    </div>
+  )
+}
+
+export default index

@@ -8,24 +8,24 @@ import { PageContainer } from "./Styled"
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch()
-  const callBack = () => {
-    dispatch({ type: SET_DEVICE, width: window.innerWidth })
-  }
+
   useEffect(() => {
+    const callBack = () => {
+      dispatch({ type: SET_DEVICE, width: window.innerWidth })
+    }
+    callBack() // on load
     window.addEventListener("resize", callBack)
     return () => {
       window.removeEventListener("resize", callBack)
     }
-  }, [])
+  }, [dispatch])
 
   const device = useSelector(state => state.reducer.device)
+  console.log("Detected platform: " + device)
   return (
     <>
       <GlobalStyle></GlobalStyle>
-      <PageContainer>
-        {children}
-        <p>current device: {device}</p>
-      </PageContainer>
+      <PageContainer>{children}</PageContainer>
     </>
   )
 }
