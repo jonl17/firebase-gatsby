@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { getFirebase } from "../service/firebase"
+import { useSelector } from "react-redux"
 
 export const useGetCollectionData = collectionName => {
   const [items, setItems] = useState([])
-
+  const trigger = useSelector(state => state.reducer.trigger)
   useEffect(() => {
     const lazyApp = import("firebase/app")
     const lazyDB = import("firebase/firestore")
@@ -25,7 +26,7 @@ export const useGetCollectionData = collectionName => {
           setItems(movies)
         })
     })
-  }, [collectionName])
+  }, [collectionName, trigger])
 
   return items
 }

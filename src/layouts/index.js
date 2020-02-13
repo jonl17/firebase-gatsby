@@ -5,6 +5,7 @@ import { SET_DEVICE } from "../state/action"
 /** components */
 import { GlobalStyle } from "../components/GlobalStyle"
 import { PageContainer } from "./Styled"
+import Navigation from "../components/Navigation"
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch()
@@ -25,7 +26,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <GlobalStyle></GlobalStyle>
-      <PageContainer>{children}</PageContainer>
+      <PageContainer>
+        <Navigation></Navigation>
+        {children}
+      </PageContainer>
     </>
   )
 }

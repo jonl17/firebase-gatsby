@@ -1,8 +1,8 @@
-import { SET_DEVICE, LOAD_MOVIE_COLLECTION } from "./action"
+import { SET_DEVICE, PULL_TRIGGER } from "./action"
 
 const initialState = {
   device: undefined,
-  movieCollection: undefined,
+  trigger: false,
 }
 
 export default (state = initialState, action) => {
@@ -19,8 +19,8 @@ export default (state = initialState, action) => {
         device = `browser`
       }
       return { ...state, device: device }
-    case LOAD_MOVIE_COLLECTION:
-      return { ...state, movieCollection: action.collection }
+    case PULL_TRIGGER:
+      return { ...state, trigger: !state.trigger }
     default:
       return state
   }

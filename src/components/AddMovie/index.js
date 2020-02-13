@@ -1,9 +1,11 @@
 import React, { useState } from "react"
-import { useGetCollection } from "../../../hooks"
+import { useGetCollection } from "../../hooks"
+import { useDispatch } from "react-redux"
+import { PULL_TRIGGER } from "../../state/action"
 
 const AddMovie = () => {
   const [name, updateName] = useState("")
-
+  const dispatch = useDispatch()
   const movieCollection = useGetCollection("movies")
 
   const handleAdd = e => {
@@ -15,7 +17,9 @@ const AddMovie = () => {
     movieCollection
       .add(movie)
       .then(function() {
-        console.log("Added item: " + name)
+        console.log("Successfully added " + name)
+        dispatch({ type: PULL_TRIGGER })
+        updateName("")
       })
       .catch(function(error) {
         console.error("Error adding document: ", error)
@@ -24,7 +28,11 @@ const AddMovie = () => {
 
   return (
     <form>
-      <input onChange={e => updateName(e.target.value)} type="text"></input>
+      <input
+        value={name}
+        onChange={e => updateName(e.target.value)}
+        type="text"
+      ></input>
       <button onClick={e => handleAdd(e)}>Add</button>
     </form>
   )
