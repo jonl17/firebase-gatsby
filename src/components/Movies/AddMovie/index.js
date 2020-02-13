@@ -11,13 +11,6 @@ const AddMovie = () => {
     Promise.all([lazyApp, lazyDB]).then(([firebase]) => {
       const DB = getFirebase(firebase).firestore()
       getDB(DB)
-      DB.collection("movies")
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            console.log(`${doc.id} => ${doc.data()}`)
-          })
-        })
     })
   }, [])
 
@@ -26,6 +19,8 @@ const AddMovie = () => {
     const movie = {
       name: name,
     }
+    db.collection("movies").add(movie)
+    updateName("")
   }
 
   return (
