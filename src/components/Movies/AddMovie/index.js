@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react"
-import { getFirebase } from "../../../service/firebase"
+import React, { useState } from "react"
+import { useGetCollection } from "../../../hooks"
 
 const AddMovie = () => {
   const [name, updateName] = useState("")
-  const [db, getDB] = useState(undefined)
 
-  useEffect(() => {
-    const lazyApp = import("firebase/app")
-    const lazyDB = import("firebase/firestore")
-    Promise.all([lazyApp, lazyDB]).then(([firebase]) => {
-      const DB = getFirebase(firebase).firestore()
-      getDB(DB)
-    })
-  }, [])
+  const movieCollection = useGetCollection("movies")
 
   const handleAdd = e => {
     e.preventDefault()
     const movie = {
       name: name,
+      created: new Date().getTime(),
     }
-    db.collection("movies").add(movie)
-    updateName("")
+    movieCollection
+      .add(movie)
+      .then(function() {
+        console.log("Added item: " + name)
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error)
+      })
   }
 
   return (

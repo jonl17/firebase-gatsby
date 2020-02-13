@@ -3,8 +3,8 @@ export const setDevice = width => ({
   type: SET_DEVICE,
   width,
 })
-export const LOAD_MOVIES = "LOAD_MOVIES"
-export const loadMovies = movies => ({
-  type: LOAD_MOVIES,
-  movies,
+export const LOAD_MOVIE_COLLECTION = "LOAD_MOVIE_COLLECTION"
+export const loadMovieCollection = collection => ({
+  type: LOAD_MOVIE_COLLECTION,
+  collection,
 })

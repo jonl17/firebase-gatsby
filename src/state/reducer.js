@@ -1,8 +1,8 @@
-import { SET_DEVICE, LOAD_MOVIES } from "./action"
+import { SET_DEVICE, LOAD_MOVIE_COLLECTION } from "./action"
 
 const initialState = {
   device: undefined,
-  movies: [],
+  movieCollection: undefined,
 }
 
 export default (state = initialState, action) => {
@@ -19,8 +19,8 @@ export default (state = initialState, action) => {
         device = `browser`
       }
       return { ...state, device: device }
-    case LOAD_MOVIES:
-      return { ...state, movies: action.movies }
+    case LOAD_MOVIE_COLLECTION:
+      return { ...state, movieCollection: action.collection }
     default:
       return state
   }
