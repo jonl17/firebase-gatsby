@@ -30,17 +30,19 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-firebase",
+      resolve: "gatsby-source-firestore",
       options: {
-        features: {
-          auth: true,
-          database: true,
-          firestore: false,
-          storage: false,
-          messaging: false,
-          functions: true,
-          performance: false,
-        },
+        credential: require("./fir-gatsby-4a231-firebase-adminsdk-jb4jv-ed904a68a5.json"),
+        types: [
+          {
+            type: "Movies",
+            collection: "movies",
+            map: doc => ({
+              name: doc.name,
+              id: doc.id,
+            }),
+          },
+        ],
       },
     },
     `gatsby-plugin-layout`,

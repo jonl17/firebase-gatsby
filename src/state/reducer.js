@@ -1,7 +1,8 @@
-import { SET_DEVICE } from "./action"
+import { SET_DEVICE, LOAD_MOVIES } from "./action"
 
 const initialState = {
   device: undefined,
+  movies: [],
 }
 
 export default (state = initialState, action) => {
@@ -18,6 +19,8 @@ export default (state = initialState, action) => {
         device = `browser`
       }
       return { ...state, device: device }
+    case LOAD_MOVIES:
+      return { ...state, movies: action.movies }
     default:
       return state
   }

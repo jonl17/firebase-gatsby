@@ -1,25 +1,41 @@
 /** components */
 import { Container } from "./Styled"
+import Movie from "./Movie"
+import AddMovie from "./AddMovie"
 
 /** tech */
-import React, { useState } from "react"
-import { useFirebase } from "gatsby-plugin-firebase"
+import React from "react"
+import { graphql, StaticQuery } from "gatsby"
 
-const Movies = () => {
-  const [movies, loadMovies] = useState(undefined)
-
-  useFirebase(firebase => {
-    firebase
-      .database()
-      .ref("/movies")
-      .once("value")
-      .then(snapshot => {
-        loadMovies(snapshot.val())
-      })
-  }, [])
-
-  console.log(movies)
-  return <Container>Movies</Container>
+const Movies = ({
+  data: {
+    allMovies: { nodes },
+  },
+}) => {
+  return (
+    <>
+      <Container>
+        <h1>Movies</h1>
+        {/* {movies.map((movie, index) => (
+        <Movie key={index} movie={movie}></Movie>
+      ))} */}
+        <AddMovie></AddMovie>
+      </Container>
+    </>
+  )
 }
 
-export default Movies
+export default props => (
+  <StaticQuery
+    query={graphql`
+      {
+        allMovies {
+          nodes {
+            name
+          }
+        }
+      }
+    `}
+    render={data => <Movies data={data} {...props}></Movies>}
+  ></StaticQuery>
+)
