@@ -1,6 +1,6 @@
 import { Container } from "./Styled"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useGetCollection } from "../../../hooks"
 import { PULL_TRIGGER } from "../../../state/action"
@@ -10,7 +10,10 @@ const Movie = ({ movie }) => {
 
   const dispatch = useDispatch()
 
-  const [accepted, accept] = useState(movie.frontmatter.accepted)
+  const [accepted, accept] = useState(false)
+  useEffect(() => {
+    accept(movie.frontmatter.accepted)
+  }, [movie.frontmatter.accepted])
 
   const deleteMovie = id => {
     movieCollection
@@ -35,6 +38,7 @@ const Movie = ({ movie }) => {
       })
       .then(function() {
         console.log("Document successfully updated!")
+        dispatch({ type: PULL_TRIGGER })
       })
       .catch(function(error) {
         // The document probably doesn't exist.

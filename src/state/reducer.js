@@ -1,8 +1,9 @@
-import { SET_DEVICE, PULL_TRIGGER } from "./action"
+import { SET_DEVICE, PULL_TRIGGER, SET_USER } from "./action"
 
 const initialState = {
   device: undefined,
   trigger: false,
+  user: undefined,
 }
 
 export default (state = initialState, action) => {
@@ -21,6 +22,8 @@ export default (state = initialState, action) => {
       return { ...state, device: device }
     case PULL_TRIGGER:
       return { ...state, trigger: !state.trigger }
+    case SET_USER:
+      return { ...state, user: action.user }
     default:
       return state
   }

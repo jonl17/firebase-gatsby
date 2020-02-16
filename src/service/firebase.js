@@ -18,3 +18,5 @@ export const getFirebase = firebase => {
 
   return firebase
 }
+
+export const getFirestore = () => {}

@@ -1,35 +1,44 @@
 import { Container } from "./Styled"
 
 import React from "react"
-import { graphql, Link, StaticQuery } from "gatsby"
+import { Link, navigate } from "gatsby"
+import { isLoggedIn, logout } from "../../service/auth"
+import { useAuth } from "../../hooks"
 
-const Navigation = ({
-  data: {
-    allSitePage: { nodes: paths },
-  },
-}) => {
+// TESTS!
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
+const Navigation = () => {
+  const [loggedIn, setLoggedIn] = useState(false)
+  const user = useSelector(state => state.reducer.user)
+  const auth = useAuth()
+
+  useEffect(() => {
+    if (user !== undefined) setLoggedIn(true)
+    else setLoggedIn(false)
+  }, [user])
+  console.log("USER AHAHAH:" + user)
   return (
     <Container>
-      {paths.map((item, index) => (
-        <Link key={index} to={item.path}>
-          {item.path}
-        </Link>
-      ))}
+      <Link to="/">Home</Link>
+      <Link to="/submit">Submit your movie</Link>
+      <Link to="/accepted-movies">Accepted Movies 2020</Link>
+      {loggedIn ? (
+        <a
+          href="/"
+          onClick={e => {
+            e.preventDefault()
+            logout(auth, navigate("."))
+          }}
+        >
+          Logout
+        </a>
+      ) : (
+        <Link to="/staff/login">Staff log in</Link>
+      )}
     </Container>
   )
 }
 
-export default props => (
-  <StaticQuery
-    query={graphql`
-      {
-        allSitePage {
-          nodes {
-            path
-          }
-        }
-      }
-    `}
-    render={data => <Navigation data={data} {...props}></Navigation>}
-  ></StaticQuery>
-)
+export default Navigation

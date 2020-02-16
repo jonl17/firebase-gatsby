@@ -33,7 +33,6 @@ export const useGetCollectionData = collectionName => {
 
 export const useGetCollection = collectionName => {
   const [collection, setCollection] = useState(undefined)
-
   useEffect(() => {
     const lazyApp = import("firebase/app")
     const lazyDB = import("firebase/firestore")
@@ -43,4 +42,17 @@ export const useGetCollection = collectionName => {
     })
   }, [collectionName])
   return collection
+}
+// AUTHENTICATION
+export const useAuth = () => {
+  const [auth, setAuth] = useState(undefined)
+  useEffect(() => {
+    const lazyApp = import("firebase/app")
+    const lazyAuth = import("firebase/auth")
+    Promise.all([lazyApp, lazyAuth]).then(([firebase]) => {
+      const auth = getFirebase(firebase).auth()
+      setAuth(auth)
+    })
+  }, [])
+  return auth
 }
